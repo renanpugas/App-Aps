@@ -6,6 +6,7 @@ import Home from "./pages/home";
 import Cadastro from "./pages/cadastro";
 import MeusAlagamentos from "./pages/meusAlagamentos";
 import CadastroAlagamento from "./pages/cadastroAlagamento";
+import BuscarAlagamento from "./pages/buscarAlagamento";
 
 export default createStackNavigator({
     Main:{
@@ -22,6 +23,9 @@ export default createStackNavigator({
     },
     CadastroAlagamento: {
         screen: CadastroAlagamento
+    },
+    BuscarAlagamento: {
+        screen: BuscarAlagamento
     }
     }, {
         initialRouteName: "Main",

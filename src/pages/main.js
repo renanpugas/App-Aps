@@ -75,8 +75,6 @@ export default class Main extends Component{
       const docs = response.data;
       const status = response.status;
 
-      console.log("oila", docs);
-
       this.setState({ nomeUsuario: docs.email});
       this.setState({ status: "logado" });
 
@@ -86,7 +84,7 @@ export default class Main extends Component{
 
     } catch(e){
       this.setState({ status: "Email e/ou senha incorretos!" });
-
+      alert("Email e/ou senha incorretos!");
       console.log(e);
     }
   };
