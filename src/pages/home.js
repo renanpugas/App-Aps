@@ -43,18 +43,34 @@ export default class Home extends Component{
     return (
         <View style={styles.container}>
 
-          <View style={styles.postContainer}>
-            <Text style={styles.postTitle}>Bem vindo {this.state.email}</Text>
+          {/* <View style={styles.postContainer}> */}
+            {/* <Text style={styles.postTitle}>Bem vindo {this.state.email}</Text> */}
             <View style={styles.button}>
-              <Button title="Cadastrar Alagamento" />
+              <Button title="Cadastrar Alagamento" onPress={()=>{
+              
+              this.props.navigation.navigate("CadastroAlagamento", {
+                email: this.state.email
+              });
+            
+            }}/>
             </View>
             <View style={styles.button}>
-              <Button title="Meus Alagamentos Cadastrados" />
+              <Button title="Meus Alagamentos Cadastrados" onPress={()=>{
+              
+              this.props.navigation.navigate("MeusAlagamentos", {
+                email: this.state.email
+              });
+            
+            }}/>
             </View>
             <View style={styles.button}>
-              <Button title="Buscar Ponto de Alagamento" />
+              <Button title="Buscar Ponto de Alagamento" onPress={()=>{
+              
+              this.props.navigation.navigate("BuscarAlagamento");
+            
+            }}/>
             </View>
-          </View>
+          {/* </View> */}
 
         </View> 
       );
@@ -87,12 +103,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginVertical: 10,
     margin: 20,
-    width: "80%",
+    width: "90%",
     backgroundColor: "#FFF",
     borderRadius: 3
   },
   
   postTitle: {
+    marginTop: 20,
+    marginLeft: "5%",
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 5
@@ -101,7 +119,7 @@ const styles = StyleSheet.create({
   button:{
     marginVertical: 10,
     width: "60%",
-    marginLeft: "20%"
+    //marginLeft: "20%"
   },
 
   postDescription: {

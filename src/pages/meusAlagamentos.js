@@ -22,14 +22,14 @@ import {
 export default class MeusAlagamentos extends Component{
   static navigationOptions = {
     title: "Projeto Sei Lá",
-    headerLeft: null
    };
 
    state = {
     nomeUsuario: [],
     email: "",
     senha: "",
-    status: ""
+    status: "",
+    idDelete: ""
    };
    
    componentDidMount(){
@@ -38,7 +38,7 @@ export default class MeusAlagamentos extends Component{
 
    loadUser = async () =>{
         try {
-          const response = await api.get("/alagamentos?email=ronaldo@example.com");
+          const response = await api.get(`/alagamentos?email=${this.props.navigation.getParam("email", "")}`);
 
           const docs = response.data;
 
@@ -58,41 +58,43 @@ export default class MeusAlagamentos extends Component{
   
   render(){
     return (
-      
+
+      <ScrollView style={styles.containerScrollView}>
         <View style={styles.container}>
 
-                <Text style={styles.postTitle}>Oi</Text>
-                {this.state.nomeUsuario.map(usuario =>{
-                    return <View style={styles.postContainer}>
-                        <Text>Rua: {usuario.rua}</Text>
-                        <Text>Cidade: {usuario.cidade}</Text>
-                        <Text>Estado: {usuario.estado}</Text>
-                        <Button title="Excluir" />
-                    </View>
-                })}          
+            {this.state.nomeUsuario.map(usuario =>{
+                return <View style={styles.postContainer} key={usuario._id}>
+                    <Text>Rua: {usuario.rua}</Text>
+                    <Text>Cidade: {usuario.cidade}</Text>
+                    <Text>Estado: {usuario.estado}</Text>
+                    <Button title="Excluir" onPress={()=>{
+                      this.onPress(usuario._id);
+                    }}/>
+                </View>
+            })} 
 
         </View> 
+      </ScrollView>
+
       );
   };
 
-  onPress = async ()=>{
+  onPress = async (id)=>{
     try {
 
-      const response = await api.post("/login", {
-        email: this.state.email,
-        senha: this.state.senha
-      });
+      const response = await api.delete(`/alagamentos/${id}`);
 
       const docs = response.data;
-      const status = response.status;
 
       console.log(docs);
-      console.log(response);
 
-      this.setState({ nomeUsuario: docs.email});
-      this.setState({ status: "logado" });
+      alert("Excluido com sucesso!");
+
+      this.loadUser();
+
     } catch(e){
-      this.setState({ status: "Email e/ou senha incorretos!" });
+
+      alert("Erro ao excluir!");
 
       console.log(e);
     }
@@ -108,11 +110,14 @@ export default class MeusAlagamentos extends Component{
 };
 
 const styles = StyleSheet.create({
+  containerScrollView: {
+    backgroundColor: "#333",
+  },
+
   container: {
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-    backgroundColor: "#333",
   },
   
   postContainer: {
@@ -120,7 +125,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     margin: 20,
     padding: 20,
-    width: "80%",
+    width: "90%",
     backgroundColor: "#FFF",
     borderRadius: 3
   },

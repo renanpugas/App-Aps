@@ -53,8 +53,6 @@ export default class Main extends Component{
               this.props.navigation.navigate("Cadastro");
             
             }}/>
-            <Text>{this.state.nomeUsuario}</Text>
-            <Text>{this.state.status}</Text>
           </View>
 
         </View> 
@@ -111,7 +109,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     margin: 20,
     padding: 20,
-    width: "80%",
+    width: "90%",
     backgroundColor: "#FFF",
     borderRadius: 3
   },
@@ -124,7 +122,7 @@ const styles = StyleSheet.create({
 
   input: {
     //borderBottomColor: "blue",
-    borderBottomWidth: 0.5
+    borderBottomWidth: 0.5,
   },
 
   button:{

@@ -28,7 +28,7 @@ export default class CadastroAlagamento extends Component{
     rua: "",
     cidade: "",
     estado: "",
-    email_criador: "ronaldo@example.com"
+    email_criador: this.props.navigation.getParam("email", "")
    };
   
   render(){
@@ -38,15 +38,13 @@ export default class CadastroAlagamento extends Component{
 
           <View style={styles.postContainer}>
             <Text style={styles.postTitle}>Cadastrar Ponto de Alagamento</Text>
-            <TextInput style={styles.input} onChangeText={this.onChangeTextRua} placeholder="Nome da rua" />
+            <TextInput style={styles.input} onChangeText={this.onChangeTextRua} placeholder="Nome da Rua" />
             <TextInput style={styles.input} onChangeText={this.onChangeTextCidade} placeholder="Nome da Cidade" />
             <TextInput style={styles.input} onChangeText={this.onChangeTextEstado} placeholder="Nome do Estado" />
             <View style={styles.button}>
               <Button onPress={this.onPress} title="Cadastrar"/>
             </View>
-            <Text>{this.state.status}</Text>
           </View>
-
         </View> 
       );
   };
@@ -77,10 +75,13 @@ export default class CadastroAlagamento extends Component{
 
         alert("Cadastrado com sucesso!");
 
+        this.props.navigation.navigate("Home", {
+          email: this.state.email_criador
+        });
+
         } catch(e){
           alert("Erro ao cadastrar!");
-
-        console.log(e);
+          console.log(e);
         }
     }
   };

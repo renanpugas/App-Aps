@@ -48,7 +48,6 @@ export default class Cadastro extends Component{
             <View style={styles.button}>
               <Button onPress={this.onPress} title="Cadastrar"/>
             </View>
-            <Text>{this.state.status}</Text>
           </View>
 
         </View> 
@@ -63,6 +62,8 @@ export default class Cadastro extends Component{
         this.setState({ status: "O Celular deve conter no mínimo 9 caracteres" });
     } else if(!this.state.email.includes("@")){
         this.setState({ status: "Email digitado inválido" });
+    } else if(this.state.senha.length < 6){
+        this.setState({ status: "A senha deve conter no mínimo 6 caracteres" });
     } else if(this.state.senha != this.state.confirmarSenha){
         this.setState({ status: "As senhas não são iguais"});
     } else {
@@ -85,9 +86,8 @@ export default class Cadastro extends Component{
         this.props.navigation.navigate("Main");
 
         } catch(e){
-          alert("Erro ao cadastrar!");
-
-        console.log(e);
+          alert("Erro ao cadastrar! Tente Novamente");
+          console.log(e);
         }
     }
   };
